@@ -1,0 +1,15 @@
+[x] ctrl + n    -> new tab
+[w] ctrl + w    -> close tab
+[x] ctrl + tab  -> switch next tab
+[x] enter to save
+
+[x] ask for filename / tabname for new tab
+[x] ctrl + s    -> save in root dir (even if saving dir is given before)
+[] ctrl + S    -> choose saving dir
+[x] ctrl + back -> go back word (get from old)
+[x] ctrl + entf -> same
+[x] ctrl + +/-  -> bigger/smaller font
+
+[] menu strip
+[]     - save / save as
+[]     - change font
