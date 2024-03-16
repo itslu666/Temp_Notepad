@@ -1,7 +1,0 @@
-new_file
-new_file_1
-new_file_1
-new_file
-new_file
-new_file_1
-new_file_1

@@ -5,11 +5,11 @@
 
 [x] ask for filename / tabname for new tab
 [x] ctrl + s    -> save in root dir (even if saving dir is given before)
-[] ctrl + S    -> choose saving dir
+[x] ctrl + S    -> choose saving dir
 [x] ctrl + back -> go back word (get from old)
 [x] ctrl + entf -> same
 [x] ctrl + +/-  -> bigger/smaller font
 
 [] menu strip
-[]     - save / save as
+[x]     - save / save as
 []     - change font

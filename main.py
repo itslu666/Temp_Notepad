@@ -1,4 +1,5 @@
 import customtkinter as ctk
+from CTkMenuBar import *
 from modules import ctrl_options, make_UI, file_management
 
 
@@ -7,9 +8,23 @@ root.geometry("800x500")
 root.title("Temp Notepad")
 
 # make default ui
+# make menu strip
+menu = CTkMenuBar(root, bg_color="#242424")
+file_menu_file = menu.add_cascade("File")
+file_menu = CustomDropdownMenu(file_menu_file, master=root)
+file_menu.add_option(
+    "New Tab", command=lambda event=None: ctrl_options.new_tab(event, tabview, root))
+file_menu.add_option(
+    "New Unnamed Tab", command=lambda event=None: ctrl_options.create_new_nameless_tab(tabview, root))
+
+file_menu_edit = menu.add_cascade("Edit")
+file_menu_ed = CustomDropdownMenu(file_menu_edit, master=root)
+file_menu_ed.add_option("Change Font", command=file_management.change_font)
+
 tabview = ctk.CTkTabview(root)
 tabview.add("new_file")
 tabview.pack(expand=True, fill="both")
+
 
 # make textbox and rest
 make_UI.make_ui(tabview, "new_file", root)

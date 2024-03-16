@@ -1,4 +1,6 @@
 import json
+import customtkinter as ctk
+from tkinter import font
 
 
 def load_data():
@@ -38,3 +40,20 @@ def get_output_data(filename):
         data = file.read()
 
     return data
+
+
+def change_font():
+    font_window = ctk.CTk()
+    font_window.geometry("300x500")
+    frame = ctk.CTkScrollableFrame(font_window)
+    frame.pack(expand=True, fill="both")
+
+    ctk.CTkButton(frame, text="Default (Consolas)",
+                  font=("Consolas", 15)).pack(pady=2)
+
+    for font_name in font.families():
+        button = ctk.CTkButton(frame, text=font_name,
+                               font=(font_name, 15))
+        button.pack(pady=2)
+
+    font_window.mainloop()

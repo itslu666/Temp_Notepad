@@ -137,19 +137,19 @@ def switch_tab(event, tabview):
     tabview.set(next_tab.replace("\n", ""))
 
 
-def save(event, tabview, root):
+def save(textbox, tabview, root):
     with open(f"output/{tabview.get()}", "w") as file:
-        file.write(event.widget.get("1.0", "end-1c"))
+        file.write(textbox.get("1.0", "end-1c"))
 
     root.title("Temp Notepad")
 
 
-def save_as(event, root, tabview):
+def save_as(textbox, root, tabview):
     filename = filedialog.asksaveasfilename(
         defaultextension=".txt", initialfile=tabview.get(), filetypes=[("Txt Files", "*.txt")])
 
     if filename:
         with open(filename, "w") as file:
-            file.write(event.widget.get("1.0", "end-1c"))
+            file.write(textbox.get("1.0", "end-1c"))
 
         root.title("Temp Notepad")
