@@ -1,1 +1,1 @@
-new_file_1
+new_file

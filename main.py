@@ -20,6 +20,8 @@ file_menu.add_option(
 file_menu_edit = menu.add_cascade("Edit")
 file_menu_ed = CustomDropdownMenu(file_menu_edit, master=root)
 file_menu_ed.add_option("Change Font", command=file_management.change_font)
+file_menu_ed.add_option("Change Default Font",
+                        command=file_management.change_default_font)
 
 tabview = ctk.CTkTabview(root)
 tabview.add("new_file")

@@ -14,6 +14,10 @@ def make_ui(tabview, tabview_name, root):
     textbox.pack(expand=True, fill="both")
 
     # make label to display infos
+    font_label = ctk.CTkLabel(
+        tabview.tab(tabview_name), text=f"Current Font: {file_management.load_data()["name"]} || Default Ctrl + f Font: {file_management.get_default_font()["default_name"]}")
+    font_label.pack(side="bottom", anchor="e", padx=5)
+
     infolabel = ctk.CTkLabel(
         tabview.tab(tabview_name), text=f"Row 1, Column 1 || Words 0 || {fontSize_perc_var.get()}%")
     infolabel.pack(side="bottom", anchor="e", padx=5)
@@ -42,3 +46,6 @@ def make_ui(tabview, tabview_name, root):
               lambda event: ctrl_options.save(textbox, tabview, root))
     root.bind('<Control-S>',
               lambda event: ctrl_options.save_as(textbox, root, tabview))
+
+    textbox.bind(
+        '<Control-f>', lambda event: file_management.change_font_selected(textbox, fontSize_var.get(), font_label))
