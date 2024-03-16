@@ -153,3 +153,7 @@ def save_as(textbox, root, tabview):
             file.write(textbox.get("1.0", "end-1c"))
 
         root.title("Temp Notepad")
+
+
+def make_checkbox(event):
+    event.widget.insert(event.widget.index(tk.INSERT), "[]")

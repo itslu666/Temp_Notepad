@@ -49,3 +49,7 @@ def make_ui(tabview, tabview_name, root):
 
     textbox.bind(
         '<Control-f>', lambda event: file_management.change_font_selected(textbox, fontSize_var.get(), font_label))
+    root.bind('<Control-F>', lambda event: file_management.change_default_font())
+
+    textbox.bind(
+        '<Control-C>', lambda event: ctrl_options.make_checkbox(event))

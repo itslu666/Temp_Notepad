@@ -10,6 +10,10 @@
 [x] ctrl + entf -> same
 [x] ctrl + +/-  -> bigger/smaller font
 
-[] menu strip
+[x] menu strip
 [x]     - save / save as
-[]     - change font
+[x]     - change font
+
+[] make bold ctrl-b
+[] underline ctrl-u
+[] italic ctrl-i

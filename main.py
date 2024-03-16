@@ -1,6 +1,6 @@
 import customtkinter as ctk
 from CTkMenuBar import *
-from modules import ctrl_options, make_UI, file_management
+from modules import ctrl_options, make_UI, file_management, help_window
 
 
 root = ctk.CTk()
@@ -16,6 +16,8 @@ file_menu.add_option(
     "New Tab", command=lambda event=None: ctrl_options.new_tab(event, tabview, root))
 file_menu.add_option(
     "New Unnamed Tab", command=lambda event=None: ctrl_options.create_new_nameless_tab(tabview, root))
+file_menu.add_separator()
+file_menu.add_option("Help", command=help_window.make_help_window)
 
 file_menu_edit = menu.add_cascade("Edit")
 file_menu_ed = CustomDropdownMenu(file_menu_edit, master=root)
@@ -39,8 +41,8 @@ with open("data/tab_names.txt", "w") as file:
 file_management.write_tab_name("new_file")
 
 # ctrl t for new tab
-root.bind('<Control-t>', lambda event: ctrl_options.new_tab(event, tabview, root))
-root.bind('<Control-T>',
+root.bind('<Control-T>', lambda event: ctrl_options.new_tab(event, tabview, root))
+root.bind('<Control-t>',
           lambda event: ctrl_options.create_new_nameless_tab(tabview, root))
 
 # ctrl + w for delete tab
