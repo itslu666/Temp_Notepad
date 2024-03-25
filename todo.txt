@@ -19,4 +19,5 @@
 [x] italic ctrl-i
 
 [x] image import
+[] remove image
 [] foreach save -> new save folder with whole images & txt with text from textbox

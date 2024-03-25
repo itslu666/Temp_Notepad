@@ -48,5 +48,6 @@ root.bind('<Control-w>', lambda event: ctrl_options.delete_tab(event, tabview))
 
 # ctrl + tab for switching
 root.bind('<Control-Tab>', lambda event: ctrl_options.switch_tab(event, tabview))
+root.protocol("WM_DELETE_WINDOW", lambda: file_management.on_close(root))
 
 root.mainloop()

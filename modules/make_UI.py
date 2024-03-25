@@ -53,11 +53,11 @@ def make_ui(tabview, tabview_name, root):
 
     # bin to make selection bold/underline/italic
     textbox.bind(
-        "<Control-b>", lambda event: ctrl_options.make_bold(textbox, fontSize_var.get()-4))
+        "<Control-b>", lambda event: ctrl_options.make_bold(textbox, fontSize_var.get()))
     textbox.bind(
         "<Control-u>", lambda event: ctrl_options.make_underline(textbox))
     textbox.bind(
-        "<Control-i>", lambda event: ctrl_options.make_italic(textbox, fontSize_var.get()-4))
+        "<Control-i>", lambda event: ctrl_options.make_italic(textbox, fontSize_var.get()))
 
     root.bind("<Control-I>",
               lambda event: ctrl_options.paste_img_clipboard(event, img_frame, root))

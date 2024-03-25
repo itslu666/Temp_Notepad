@@ -198,7 +198,7 @@ def make_italic(textbox, fontsize):
     end_index = textbox.index("sel.last")
 
     # Configure tag for italic text
-    textbox.tag_config("italic", font=(font_name, fontsize, "italic"))
+    textbox.tag_config("italic", font=(font_name, int(fontsize/1.5), "italic"))
     # Apply italic tag to selected text
     textbox.tag_add("italic", start_index, end_index)
 
@@ -223,6 +223,6 @@ def paste_img_clipboard(event, frame, root):
         # make label
         img_label = ctk.CTkLabel(frame,
                                  image=ctk.CTkImage(img_ctkimg, size=(img_ctkimg.width / 2, img_ctkimg.height / 2)), text="")
-        img_label.pack(side="top", anchor="w", padx=(6, 0))
+        img_label.pack(side="top", anchor="w", pady=(0, 10))
     else:
         print("no img")

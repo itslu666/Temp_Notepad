@@ -1,6 +1,7 @@
 import json
 import customtkinter as ctk
 from tkinter import font
+import os
 
 
 def load_data():
@@ -55,3 +56,10 @@ def change_font():
 def switch_font(font_name):
     with open("data/font.json", "w") as file:
         json.dump({"name": font_name}, file, indent=4)
+
+
+def on_close(root):
+    for filename in os.listdir("data/temp_img"):
+        os.remove(f"data/temp_img/{filename}")
+
+    root.destroy()
