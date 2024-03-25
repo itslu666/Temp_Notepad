@@ -2,6 +2,8 @@ import tkinter as tk
 from tkinter import filedialog
 import customtkinter as ctk
 from . import file_management, make_UI
+from PIL import Image, ImageGrab
+import time
 
 
 def do_backspace(event):
@@ -138,7 +140,11 @@ def switch_tab(event, tabview):
 
 
 def save(textbox, tabview, root):
-    with open(f"output/{tabview.get()}", "w") as file:
+    """ for widget in tabview.tab(tabview.get()).winfo_children():
+        if isinstance(widget, ctk.CTkLabel) and isinstance(widget._image, ctk.CTkImage):
+            print(widget._image._light_image) """
+
+    with open(f"output/{tabview.get()}.notepad", "w") as file:
         file.write(textbox.get("1.0", "end-1c"))
 
     root.title("Temp Notepad")
@@ -156,4 +162,67 @@ def save_as(textbox, root, tabview):
 
 
 def make_checkbox(event):
-    event.widget.insert(event.widget.index(tk.INSERT), "[]")
+    event.widget.insert(event.widget.index(tk.INSERT), "[] ")
+
+
+def make_bold(textbox, fontsize):
+    font_name = file_management.load_data()["name"]  # Get fontname
+    # Get the start index of the selection
+    start_index = textbox.index("sel.first")
+    # Get the end index of the selection
+    end_index = textbox.index("sel.last")
+
+    # Configure tag for bold text
+    textbox.tag_config("bold", font=(font_name, fontsize, "bold"))
+    # Apply bold tag to selected text
+    textbox.tag_add("bold", start_index, end_index)
+
+
+def make_underline(textbox):
+    # Get the start index of the selection
+    start_index = textbox.index("sel.first")
+    # Get the end index of the selection
+    end_index = textbox.index("sel.last")
+
+    # Configure tag for underlined text
+    textbox.tag_config("underline", underline=True)
+    # Apply underline tag to selected text
+    textbox.tag_add("underline", start_index, end_index)
+
+
+def make_italic(textbox, fontsize):
+    font_name = file_management.load_data()["name"]  # Get fontname
+    # Get the start index of the selection
+    start_index = textbox.index("sel.first")
+    # Get the end index of the selection
+    end_index = textbox.index("sel.last")
+
+    # Configure tag for italic text
+    textbox.tag_config("italic", font=(font_name, fontsize, "italic"))
+    # Apply italic tag to selected text
+    textbox.tag_add("italic", start_index, end_index)
+
+    return "break"
+
+
+def choose_img():
+    ...
+
+
+def paste_img_clipboard(event, frame, root):
+    # get img from clipboard
+    image = ImageGrab.grabclipboard()
+    timestamp = int(time.time())
+
+    if image:
+        # save img in temp folder
+        image.save(f"data/temp_img/temp{timestamp}.png")
+        # make Image obj for ctkimage
+        img_ctkimg = Image.open(f"data/temp_img/temp{timestamp}.png")
+
+        # make label
+        img_label = ctk.CTkLabel(frame,
+                                 image=ctk.CTkImage(img_ctkimg, size=(img_ctkimg.width / 2, img_ctkimg.height / 2)), text="")
+        img_label.pack(side="top", anchor="w", padx=(6, 0))
+    else:
+        print("no img")

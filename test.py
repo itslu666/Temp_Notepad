@@ -1,27 +1,43 @@
 import tkinter as tk
+from tkinter import ttk
 
 
-def change_font():
-    selected_text = text_box.selection_get()  # Get the selected text
-    # Get the start index of the selection
-    start_index = text_box.index("sel.first")
-    # Get the end index of the selection
-    end_index = text_box.index("sel.last")
-
-    # Add a tag to the selected text
-    text_box.tag_add("selected", start_index, end_index)
-    # Change font for the selected text
-    text_box.tag_config("selected", font=("Arial", 12))
+def find_widgets_in_tab(tab):
+    # Erhalte alle Widgets im Tab
+    tab_widgets = tab.winfo_children()
+    return tab_widgets
 
 
 root = tk.Tk()
 
-text_box = tk.Text(root)
-text_box.pack()
+# TabView erstellen
+tabview = ttk.Notebook(root)
+tabview.pack(fill="both", expand=True)
 
-text_box.insert("1.0", "This is some sample text.")
+# Tabs erstellen
+tab1 = tk.Frame(tabview)
+tab2 = tk.Frame(tabview)
+tabview.add(tab1, text="Tab 1")
+tabview.add(tab2, text="Tab 2")
 
-change_font_button = tk.Button(root, text="Change Font", command=change_font)
-change_font_button.pack()
+# Beispiel-Widgets in den Tabs erstellen
+label1 = tk.Label(tab1, text="Label in Tab 1")
+label1.pack()
+button1 = tk.Button(tab1, text="Button in Tab 1")
+button1.pack()
+
+label2 = tk.Label(tab2, text="Label in Tab 2")
+label2.pack()
+button2 = tk.Button(tab2, text="Button in Tab 2")
+button2.pack()
+
+# Alle Widgets im Tab 1 finden
+widgets_in_tab1 = find_widgets_in_tab(tab1)
+print("Widgets im Tab 1:", widgets_in_tab1)
+
+# Text des Labels im Tab 1 ändern
+for widget in widgets_in_tab1:
+    if isinstance(widget, tk.Label):
+        widget.config(text="Neuer Text im Label")
 
 root.mainloop()

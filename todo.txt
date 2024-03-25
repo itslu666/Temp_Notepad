@@ -14,6 +14,9 @@
 [x]     - save / save as
 [x]     - change font
 
-[] make bold ctrl-b
-[] underline ctrl-u
-[] italic ctrl-i
+[x] make bold ctrl-b
+[x] underline ctrl-u
+[x] italic ctrl-i
+
+[x] image import
+[] foreach save -> new save folder with whole images & txt with text from textbox

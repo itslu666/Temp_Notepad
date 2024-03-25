@@ -1,5 +1,5 @@
 import customtkinter as ctk
-from modules import file_management, ctrl_options, word_info
+from modules import file_management, ctrl_options, word_info, ctk_xyframe
 
 
 def make_ui(tabview, tabview_name, root):
@@ -11,16 +11,16 @@ def make_ui(tabview, tabview_name, root):
 
     textbox = ctk.CTkTextbox(tabview.tab(tabview_name), font=font)
     textbox.focus_set()
-    textbox.pack(expand=True, fill="both")
+    textbox.pack(expand=True, fill="both", side="left")
 
     # make label to display infos
-    font_label = ctk.CTkLabel(
-        tabview.tab(tabview_name), text=f"Current Font: {file_management.load_data()["name"]} || Default Ctrl + f Font: {file_management.get_default_font()["default_name"]}")
-    font_label.pack(side="bottom", anchor="e", padx=5)
-
     infolabel = ctk.CTkLabel(
         tabview.tab(tabview_name), text=f"Row 1, Column 1 || Words 0 || {fontSize_perc_var.get()}%")
     infolabel.pack(side="bottom", anchor="e", padx=5)
+
+    img_frame = ctk_xyframe.CTkXYFrame(
+        tabview.tab(tabview_name), width=300)
+    img_frame.pack(expand=True, fill="both", side="bottom", padx=10)
 
     # keybinds ---------------------------------------------------
     # update info
@@ -36,10 +36,10 @@ def make_ui(tabview, tabview_name, root):
                  : ctrl_options.do_delete(event))
 
     # change fontsize
-    root.bind('<Control-plus>', lambda event,
-              mt=textbox: ctrl_options.increase_fontsize(event, mt, fontSize_var, fontSize_perc_var))
-    root.bind('<Control-minus>', lambda event,
-              mt=textbox: ctrl_options.decrease_fontsize(event, mt, fontSize_var, fontSize_perc_var))
+    textbox.bind('<Control-plus>', lambda event,
+                 mt=textbox: ctrl_options.increase_fontsize(event, mt, fontSize_var, fontSize_perc_var))
+    textbox.bind('<Control-minus>', lambda event,
+                 mt=textbox: ctrl_options.decrease_fontsize(event, mt, fontSize_var, fontSize_perc_var))
 
     # ctrl + s for save
     root.bind('<Control-s>',
@@ -47,9 +47,19 @@ def make_ui(tabview, tabview_name, root):
     root.bind('<Control-S>',
               lambda event: ctrl_options.save_as(textbox, root, tabview))
 
-    textbox.bind(
-        '<Control-f>', lambda event: file_management.change_font_selected(textbox, fontSize_var.get(), font_label))
-    root.bind('<Control-F>', lambda event: file_management.change_default_font())
-
+    # bind to put []
     textbox.bind(
         '<Control-C>', lambda event: ctrl_options.make_checkbox(event))
+
+    # bin to make selection bold/underline/italic
+    textbox.bind(
+        "<Control-b>", lambda event: ctrl_options.make_bold(textbox, fontSize_var.get()-4))
+    textbox.bind(
+        "<Control-u>", lambda event: ctrl_options.make_underline(textbox))
+    textbox.bind(
+        "<Control-i>", lambda event: ctrl_options.make_italic(textbox, fontSize_var.get()-4))
+
+    root.bind("<Control-I>",
+              lambda event: ctrl_options.paste_img_clipboard(event, img_frame, root))
+    root.bind("<Control-Alt-i>",
+              lambda event: ctrl_options.choose_img(event, tabview))
