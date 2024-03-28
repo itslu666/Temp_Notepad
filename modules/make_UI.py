@@ -47,9 +47,12 @@ def make_ui(tabview, tabview_name, root):
 
     # ctrl + s for save
     root.bind('<Control-s>',
-              lambda event: ctrl_options.save(textbox, tabview, root))
+              lambda event: file_management.save_file(textbox, tabview, root))
     root.bind('<Control-S>',
-              lambda event: ctrl_options.save_as(textbox, root, tabview))
+              lambda event: file_management.save_file_as(textbox, root))
+
+    root.bind('<Control-o>',
+              lambda event: file_management.open_file(tabview, root))
 
     # bind to put []
     textbox.bind(

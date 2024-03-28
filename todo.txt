@@ -23,3 +23,5 @@
 [] foreach save -> new save folder with whole images & txt with text from textbox
 
 [x] if x in [] cross everything after that
+
+[] if img bigger than.., only then resize to half size

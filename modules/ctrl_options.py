@@ -152,28 +152,6 @@ def switch_tab(event, tabview):
     tabview.set(next_tab.replace("\n", ""))
 
 
-def save(textbox, tabview, root):
-    """ for widget in tabview.tab(tabview.get()).winfo_children():
-        if isinstance(widget, ctk.CTkLabel) and isinstance(widget._image, ctk.CTkImage):
-            print(widget._image._light_image) """
-
-    with open(f"output/{tabview.get()}.notepad", "w") as file:
-        file.write(textbox.get("1.0", "end-1c"))
-
-    root.title("Temp Notepad")
-
-
-def save_as(textbox, root, tabview):
-    filename = filedialog.asksaveasfilename(
-        defaultextension=".txt", initialfile=tabview.get(), filetypes=[("Txt Files", "*.txt")])
-
-    if filename:
-        with open(filename, "w") as file:
-            file.write(textbox.get("1.0", "end-1c"))
-
-        root.title("Temp Notepad")
-
-
 def make_checkbox(event):
     event.widget.insert(event.widget.index(tk.INSERT), "[] ")
 
