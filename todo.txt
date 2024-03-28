@@ -1,4 +1,4 @@
-[x] ctrl + n    -> new tab
+[x] ctrl + t    -> new tab
 [w] ctrl + w    -> close tab
 [x] ctrl + tab  -> switch next tab
 [x] enter to save
@@ -22,4 +22,4 @@
 [x] remove image
 [] foreach save -> new save folder with whole images & txt with text from textbox
 
-[] if x in [] cross everything after that until |
+[x] if x in [] cross everything after that

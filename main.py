@@ -6,6 +6,7 @@ from modules import ctrl_options, make_UI, file_management, help_window
 root = ctk.CTk()
 root.geometry("800x500")
 root.title("Temp Notepad")
+root.iconbitmap("data/icon.ico")
 
 # make default ui
 # make menu strip

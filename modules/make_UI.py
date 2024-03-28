@@ -29,6 +29,10 @@ def make_ui(tabview, tabview_name, root):
 
     textbox.bind("<KeyPress>", lambda event: root.title("Temp Notepad*"))
 
+    # check checkboxes
+    textbox.bind("<ButtonRelease-1>",
+                 lambda e: ctrl_options.check_brackets(e, textbox))
+
     # backspace and delete word
     textbox.bind('<Control-BackSpace>', lambda event,
                  : ctrl_options.do_backspace(event))
@@ -58,8 +62,10 @@ def make_ui(tabview, tabview_name, root):
         "<Control-u>", lambda event: ctrl_options.make_underline(textbox))
     textbox.bind(
         "<Control-i>", lambda event: ctrl_options.make_italic(textbox, fontSize_var.get()))
+    textbox.bind(
+        "<Control-q>", lambda event: ctrl_options.make_overstriked(textbox))
 
     root.bind("<Control-I>",
               lambda event: ctrl_options.paste_img_clipboard(event, img_frame, root))
-    root.bind("<Control-Alt-i>",
+    root.bind("<Control-Alt-I>",
               lambda event: ctrl_options.choose_img(event, img_frame, root))

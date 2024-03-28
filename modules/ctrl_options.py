@@ -29,22 +29,34 @@ def increase_fontsize(event, maintextbox, fontSize_var, fontSize_perc_var):
     # get size & percent
     new_size = fontSize_var.get() + 2
     new_size_perc = fontSize_perc_var.get() + 10
+    font_name = file_management.load_data()["name"]
 
     # update textbox & set vars
-    maintextbox.configure(font=(file_management.load_data()["name"], new_size))
+    maintextbox.configure(font=(font_name, new_size))
     fontSize_var.set(new_size)
     fontSize_perc_var.set(new_size_perc)
+
+    # configure tags to update bold and italic text (otherwise no size change)
+    maintextbox.tag_config("bold", font=(font_name, new_size, "bold"))
+    maintextbox.tag_config("italic", font=(
+        font_name, int(new_size/1.5), "italic"))
 
 
 def decrease_fontsize(event, maintextbox, fontSize_var, fontSize_perc_var):
     # get size & percent
     new_size = fontSize_var.get() - 2
     new_size_perc = fontSize_perc_var.get() - 10
+    font_name = file_management.load_data()["name"]
 
     # update textbox & set vars
-    maintextbox.configure(font=(file_management.load_data()["name"], new_size))
+    maintextbox.configure(font=(font_name, new_size))
     fontSize_var.set(new_size)
     fontSize_perc_var.set(new_size_perc)
+
+    # configure tags to update bold and italic text (otherwise no size change)
+    maintextbox.tag_config("bold", font=(font_name, new_size, "bold"))
+    maintextbox.tag_config("italic", font=(
+        font_name, int(new_size/1.5), "italic"))
 
 
 def new_tab(event, tabview, root):
@@ -206,6 +218,18 @@ def make_italic(textbox, fontsize):
     return "break"
 
 
+def make_overstriked(textbox):
+    # Get the start index of the selection
+    start_index = textbox.index("sel.first")
+    # Get the end index of the selection
+    end_index = textbox.index("sel.last")
+
+    # Configure tag for bold text
+    textbox.tag_config("overstrike", overstrike=True)
+    # Apply bold tag to selected text
+    textbox.tag_add("overstrike", start_index, end_index)
+
+
 def choose_img(event, frame, root):
     def delete_img():
         del_button.pack_forget()
@@ -267,3 +291,29 @@ def paste_img_clipboard(event, frame, root):
         del_button.pack(pady=(0, 10), fill="x")
     else:
         print("no img")
+
+
+def check_brackets(e, textbox):
+    current_index = textbox.index(tk.INSERT)
+    prev_index = f"{current_index} - 1 chars"
+    next_index = f"{current_index} + 1 chars"
+
+    pre_char = textbox.get(prev_index, current_index)
+    next_char = textbox.get(current_index, next_index)
+
+    line_start_index = f"{current_index} linestart"
+    line_end_index = f"{current_index} lineend"
+
+    if pre_char == "[" and next_char == "]":
+        textbox.insert(tk.INSERT, "x")
+        if not textbox.tag_ranges("strikethrough"):
+            textbox.tag_config("strikethrough", overstrike=True)
+        textbox.tag_add("strikethrough", line_start_index, line_end_index)
+
+    elif pre_char == "x" and next_char == "]":
+        textbox.delete(prev_index, current_index)
+        textbox.tag_remove("strikethrough", line_start_index, line_end_index)
+
+    elif pre_char == "[" and next_char == "x":
+        textbox.delete(current_index, next_index)
+        textbox.tag_remove("strikethrough", line_start_index, line_end_index)
