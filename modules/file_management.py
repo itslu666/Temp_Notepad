@@ -6,7 +6,7 @@ from . import make_UI
 
 
 def load_data():
-    with open("data/font.json", "r") as file:
+    with open(os.path.join("data", "font.json"), "r") as file:
         data = json.load(file)
 
     return data
@@ -14,12 +14,12 @@ def load_data():
 
 def write_tab_name(tab_name):
     if tab_name not in get_tab_names():
-        with open("data/tab_names.txt", "a") as file:
+        with open(os.path.join("data", "tab_names.txt"), "a") as file:
             file.write(tab_name + "\n")
 
 
 def get_tab_names():
-    with open("data/tab_names.txt", "r") as file:
+    with open(os.path.join("data", "tab_names.txt"), "r") as file:
         tab_names = file.readlines()
 
     return tab_names
@@ -32,7 +32,7 @@ def delete_tab_name(tab_name):
         tab_names.remove(f"{tab_name}\n")
 
         # Schreiben der aktualisierten Liste zurück in die Datei
-        with open("data/tab_names.txt", "w") as file:
+        with open(os.path.join("data", "tab_names.txt"), "w") as file:
             for name in tab_names:
                 file.write(name)
 
@@ -55,13 +55,13 @@ def change_font():
 
 
 def switch_font(font_name):
-    with open("data/font.json", "w") as file:
+    with open(os.path.join("data", "font.json"), "w") as file:
         json.dump({"name": font_name}, file, indent=4)
 
 
 def on_close(root):
-    for filename in os.listdir("data/temp_img"):
-        os.remove(f"data/temp_img/{filename}")
+    for filename in os.listdir(os.path.join("data", "temp_img")):
+        os.remove(os.path.join("data", "temp_img", filename))
 
     root.destroy()
 
@@ -93,17 +93,17 @@ def save_textbox(textbox):
 def save_file(textbox, tabview, root):
     data = save_textbox(textbox)
 
-    with open(f"output/{tabview.get()}.json", "w") as file:
+    with open(os.path.join("output", f"{tabview.get()}.notepad"), "w") as file:
         json.dump(data, file, indent=4)
 
     root.title("Temp Notepad")
 
 
-def save_file_as(textbox, root):
+def save_file_as(textbox, root, tabview):
     data = save_textbox(textbox)
 
-    filepath = filedialog.asksaveasfilename(defaultextension=".json", filetypes=[
-        ("Json Files", "*.json"), ("Notepad Files", "*.notepad*")])
+    filepath = filedialog.asksaveasfilename(initialfile=tabview.get(), defaultextension=".notepad", filetypes=[
+                                            ("Notepad Files", "*.notepad*"), ("Json Files", "*.json")])
 
     if filepath:
         with open(filepath, "w") as file:
@@ -112,14 +112,20 @@ def save_file_as(textbox, root):
         root.title("Temp Notepad")
 
 
-def open_file(tabview, root):
-    # only god knows but I'll try to explain
-    # get filepath
+def choose_file(tabview, root):
     filepath = filedialog.askopenfilename(
-        filetypes=[("Json Files", "*.json"), ("Notepad Files", "*.notepad")])
+        filetypes=[("Notepad Files", "*.notepad"), ("Json Files", "*.json")])
     print(filepath)
     # get filename
     filename = filepath.split("/")[-1].split(".")[0]
+
+    open_file(tabview, root, filename, filepath)
+
+
+def open_file(tabview, root, filename, filepath):
+    # only god knows but I'll try to explain
+    # get filepath
+
     print(filename)
 
     # get all existing tabs

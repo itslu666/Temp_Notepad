@@ -212,8 +212,8 @@ def choose_img(event, frame, root):
     def delete_img():
         del_button.pack_forget()
         img_label.pack_forget()
-        if os.path.exists(f"data/temp_img/temp{timestamp}.png"):
-            os.remove(f"data/temp_img/temp{timestamp}.png")
+        if os.path.exists(os.path.join("data", "temp_img", f"temp{timestamp}.png")):
+            os.remove(os.path.join("data", "temp_img", f"temp{timestamp}.png"))
         else:
             pass
 
@@ -224,10 +224,11 @@ def choose_img(event, frame, root):
         # Öffne das ausgewählte Bild und speichere es im temporären Ordner
         timestamp = int(time.time())
         img = Image.open(file_path)
-        img.save(f"data/temp_img/temp{timestamp}.png")
+        img.save(os.path.join("data", "temp_img", f"temp{timestamp}.png"))
 
         # Erstelle das Image-Label und den Löschen-Button
-        img_ctkimg = Image.open(f"data/temp_img/temp{timestamp}.png")
+        img_ctkimg = Image.open(os.path.join(
+            "data", "temp_img", f"temp{timestamp}.png"))
         img_label = ctk.CTkLabel(frame, text="", image=ctk.CTkImage(
             img_ctkimg, size=(img_ctkimg.width / 2, img_ctkimg.height / 2)))
         img_label.pack(side="top", anchor="w")
@@ -242,8 +243,8 @@ def paste_img_clipboard(event, frame, root):
     def delete_img():
         del_button.pack_forget()
         img_label.pack_forget()
-        if os.path.exists(f"data/temp_img/temp{timestamp}.png"):
-            os.remove(f"data/temp_img/temp{timestamp}.png")
+        if os.path.exists(os.path.join("data", "temp_img", f"temp{timestamp}.png")):
+            os.remove(os.path.join("data", "temp_img", f"temp{timestamp}.png"))
         else:
             pass
 
@@ -253,9 +254,10 @@ def paste_img_clipboard(event, frame, root):
 
     if image:
         # save img in temp folder
-        image.save(f"data/temp_img/temp{timestamp}.png")
+        image.save(os.path.join("data", "temp_img", f"temp{timestamp}.png"))
         # make Image obj for ctkimage
-        img_ctkimg = Image.open(f"data/temp_img/temp{timestamp}.png")
+        img_ctkimg = Image.open(os.path.join(
+            "data", "temp_img", f"temp{timestamp}.png"))
 
         # calc img size
         width = img_ctkimg.width
@@ -292,14 +294,14 @@ def check_brackets(e, textbox):
 
     if pre_char == "[" and next_char == "]":
         textbox.insert(tk.INSERT, "x")
-        if not textbox.tag_ranges("strikethrough"):
-            textbox.tag_config("strikethrough", overstrike=True)
-        textbox.tag_add("strikethrough", line_start_index, line_end_index)
+        if not textbox.tag_ranges("overstrike"):
+            textbox.tag_config("overstrike", overstrike=True)
+        textbox.tag_add("overstrike", line_start_index, line_end_index)
 
     elif pre_char == "x" and next_char == "]":
         textbox.delete(prev_index, current_index)
-        textbox.tag_remove("strikethrough", line_start_index, line_end_index)
+        textbox.tag_remove("overstrike", line_start_index, line_end_index)
 
     elif pre_char == "[" and next_char == "x":
         textbox.delete(current_index, next_index)
-        textbox.tag_remove("strikethrough", line_start_index, line_end_index)
+        textbox.tag_remove("overstrike", line_start_index, line_end_index)

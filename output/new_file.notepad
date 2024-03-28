@@ -1,0 +1,24 @@
+{
+    "text": "[x] check hcekc\n\n\n[x] hceh\n\n\nadasdas\n",
+    "sel": [],
+    "overstrike": [
+        {
+            "start_index": "1.0",
+            "end_index": "1.15",
+            "overstrike": true,
+            "font": ""
+        },
+        {
+            "start_index": "4.0",
+            "end_index": "4.8",
+            "overstrike": true,
+            "font": ""
+        },
+        {
+            "start_index": "7.0",
+            "end_index": "7.7",
+            "overstrike": true,
+            "font": ""
+        }
+    ]
+}
