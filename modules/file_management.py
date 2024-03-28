@@ -96,7 +96,7 @@ def save_file(textbox, tabview, root):
     with open(f"output/{tabview.get()}.json", "w") as file:
         json.dump(data, file, indent=4)
 
-    root.title("Temp_Notepad")
+    root.title("Temp Notepad")
 
 
 def save_file_as(textbox, root):
@@ -109,7 +109,7 @@ def save_file_as(textbox, root):
         with open(filepath, "w") as file:
             json.dump(data, file, indent=4)
 
-        root.title("Temp_Notepad")
+        root.title("Temp Notepad")
 
 
 def open_file(tabview, root):

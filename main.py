@@ -18,6 +18,13 @@ file_menu.add_option(
 file_menu.add_option(
     "New Unnamed Tab", command=lambda event=None: ctrl_options.create_new_nameless_tab(tabview, root))
 file_menu.add_separator()
+file_menu.add_option(
+    "Save", command=lambda: root.event_generate("<Control-s>"))
+file_menu.add_option(
+    "Save As", command=lambda: root.event_generate("<Control-S>"))
+file_menu.add_option(
+    "Open", command=lambda: root.event_generate("<Control-o>"))
+file_menu.add_separator()
 file_menu.add_option("Help", command=help_window.make_help_window)
 
 file_menu_edit = menu.add_cascade("Edit")

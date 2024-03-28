@@ -257,15 +257,23 @@ def paste_img_clipboard(event, frame, root):
         # make Image obj for ctkimage
         img_ctkimg = Image.open(f"data/temp_img/temp{timestamp}.png")
 
+        # calc img size
+        width = img_ctkimg.width
+        height = img_ctkimg.height
+
+        if width > 400:
+            width = width / 2
+            height = height / 2
+
         # make label
         img_label = ctk.CTkLabel(frame,
                                  image=ctk.CTkImage(img_ctkimg, size=(
-                                     img_ctkimg.width / 2, img_ctkimg.height / 2)), text="")
+                                     width, height)), text="")
         img_label.pack(side="top", anchor="w")
 
         # make delete button
         del_button = ctk.CTkButton(
-            frame, text="Delete Image", width=img_ctkimg.width / 2, command=delete_img)
+            frame, text="Delete Image", width=width, command=delete_img)
         del_button.pack(pady=(0, 10), fill="x")
     else:
         print("no img")

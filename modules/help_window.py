@@ -21,12 +21,14 @@ def make_help_window():
     tabs_table.pack(expand=True, fill="both", padx=20, pady=20)
 
     # file
-    file_table = CTkTable(helpwindow, row=2, column=2)
+    file_table = CTkTable(helpwindow, row=3, column=2)
 
     file_table.insert(0, 0, "CTRL + s")
     file_table.insert(0, 1, "Save to output directory")
     file_table.insert(1, 0, "CTRL + SHIFT + s")
     file_table.insert(1, 1, "Choose saving directory")
+    file_table.insert(2, 0, "CTRL + o")
+    file_table.insert(2, 1, "Open file")
 
     file_table.pack(expand=True, fill="both", padx=20, pady=20)
 
