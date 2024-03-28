@@ -4,6 +4,7 @@ import customtkinter as ctk
 from . import file_management, make_UI
 from PIL import Image, ImageGrab
 import time
+import os
 
 
 def do_backspace(event):
@@ -205,11 +206,45 @@ def make_italic(textbox, fontsize):
     return "break"
 
 
-def choose_img():
-    ...
+def choose_img(event, frame, root):
+    def delete_img():
+        del_button.pack_forget()
+        img_label.pack_forget()
+        if os.path.exists(f"data/temp_img/temp{timestamp}.png"):
+            os.remove(f"data/temp_img/temp{timestamp}.png")
+        else:
+            pass
+
+    # Öffne einen Dateidialog, um das Bild auszuwählen
+    file_path = filedialog.askopenfilename(filetypes=(
+        ("png files", "*.png"), ("jpg files", "*.jpg")))
+    if file_path:
+        # Öffne das ausgewählte Bild und speichere es im temporären Ordner
+        timestamp = int(time.time())
+        img = Image.open(file_path)
+        img.save(f"data/temp_img/temp{timestamp}.png")
+
+        # Erstelle das Image-Label und den Löschen-Button
+        img_ctkimg = Image.open(f"data/temp_img/temp{timestamp}.png")
+        img_label = ctk.CTkLabel(frame, text="", image=ctk.CTkImage(
+            img_ctkimg, size=(img_ctkimg.width / 2, img_ctkimg.height / 2)))
+        img_label.pack(side="top", anchor="w")
+
+        del_button = ctk.CTkButton(
+            frame, text="Delete Image", command=delete_img)
+        del_button.pack(pady=(0, 10), fill="x")
 
 
 def paste_img_clipboard(event, frame, root):
+    # del img function
+    def delete_img():
+        del_button.pack_forget()
+        img_label.pack_forget()
+        if os.path.exists(f"data/temp_img/temp{timestamp}.png"):
+            os.remove(f"data/temp_img/temp{timestamp}.png")
+        else:
+            pass
+
     # get img from clipboard
     image = ImageGrab.grabclipboard()
     timestamp = int(time.time())
@@ -222,7 +257,13 @@ def paste_img_clipboard(event, frame, root):
 
         # make label
         img_label = ctk.CTkLabel(frame,
-                                 image=ctk.CTkImage(img_ctkimg, size=(img_ctkimg.width / 2, img_ctkimg.height / 2)), text="")
-        img_label.pack(side="top", anchor="w", pady=(0, 10))
+                                 image=ctk.CTkImage(img_ctkimg, size=(
+                                     img_ctkimg.width / 2, img_ctkimg.height / 2)), text="")
+        img_label.pack(side="top", anchor="w")
+
+        # make delete button
+        del_button = ctk.CTkButton(
+            frame, text="Delete Image", width=img_ctkimg.width / 2, command=delete_img)
+        del_button.pack(pady=(0, 10), fill="x")
     else:
         print("no img")

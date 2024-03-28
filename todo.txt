@@ -19,5 +19,7 @@
 [x] italic ctrl-i
 
 [x] image import
-[] remove image
+[x] remove image
 [] foreach save -> new save folder with whole images & txt with text from textbox
+
+[] if x in [] cross everything after that until |

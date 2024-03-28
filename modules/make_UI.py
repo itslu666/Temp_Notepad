@@ -62,4 +62,4 @@ def make_ui(tabview, tabview_name, root):
     root.bind("<Control-I>",
               lambda event: ctrl_options.paste_img_clipboard(event, img_frame, root))
     root.bind("<Control-Alt-i>",
-              lambda event: ctrl_options.choose_img(event, tabview))
+              lambda event: ctrl_options.choose_img(event, img_frame, root))
