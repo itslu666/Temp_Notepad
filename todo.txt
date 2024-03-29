@@ -24,4 +24,11 @@
 
 [x] if x in [] cross everything after that
 
-[] if img bigger than.., only then resize to half size
+[x] if img bigger than.., only then resize to half size
+
+[] convert to txt / save as txt -> just get text from textbox
+
+[] lightmode
+
+pyinstaller:
+pyinstaller --name Temp_Notepad --icon D:\software\zCODE\python\temp_notepad\data\icon.ico -w -D main.py
