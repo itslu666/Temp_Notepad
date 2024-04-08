@@ -28,7 +28,9 @@
 
 [] convert to txt / save as txt -> just get text from textbox
 
-[] lightmode
+[x] lightmode
+
+[] Markdown
 
 pyinstaller:
 pyinstaller --name Temp_Notepad --icon D:\software\zCODE\python\temp_notepad\data\icon.ico -w -D main.py

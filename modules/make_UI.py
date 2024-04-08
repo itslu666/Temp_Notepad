@@ -9,7 +9,7 @@ def make_ui(tabview, tabview_name, root):
     fontSize_perc_var = ctk.IntVar(value=100)
     font = (file_management.load_data()["name"], fontSize_var.get())
 
-    textbox = ctk.CTkTextbox(tabview.tab(tabview_name), font=font)
+    textbox = ctk.CTkTextbox(tabview.tab(tabview_name), font=font, width=500)
     textbox.focus_set()
     textbox.pack(expand=True, fill="both", side="left")
 
@@ -18,9 +18,9 @@ def make_ui(tabview, tabview_name, root):
         tabview.tab(tabview_name), text=f"Row 1, Column 1 || Words 0 || {fontSize_perc_var.get()}%")
     infolabel.pack(side="bottom", anchor="e", padx=5)
 
-    img_frame = ctk_xyframe.CTkXYFrame(
-        tabview.tab(tabview_name), width=300)
-    img_frame.pack(expand=True, fill="both", side="bottom", padx=10)
+    img_frame = ctk.CTkScrollableFrame(
+        tabview.tab(tabview_name))
+    img_frame.pack(expand=True, fill="both", side="left", padx=10)
 
     # keybinds ---------------------------------------------------
     # update info
