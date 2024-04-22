@@ -68,7 +68,7 @@ def make_ui(tabview, tabview_name, root):
     textbox.bind(
         "<Control-q>", lambda event: ctrl_options.make_overstriked(textbox))
 
-    root.bind("<Control-I>",
+    root.bind("<Control-v>",
               lambda event: ctrl_options.paste_img_clipboard(event, img_frame, root))
-    root.bind("<Control-Alt-I>",
+    root.bind("<Control-V>",
               lambda event: ctrl_options.choose_img(event, img_frame, root))
