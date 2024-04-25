@@ -25,6 +25,12 @@ def change_appearance_mode():
     file.close()
 
 
+def always_on_top():
+    current_state = root.attributes("-topmost")
+    new_state = not current_state  # Umkehrung des aktuellen Zustands
+    root.attributes("-topmost", new_state)
+
+
 appearance_mode = get_appearance_mode()
 
 ctk.set_appearance_mode(appearance_mode)
@@ -57,6 +63,7 @@ file_menu.add_separator()
 file_menu.add_option("Help", command=help_window.make_help_window)
 file_menu.add_option("Change Appearance Mode",
                      command=lambda: change_appearance_mode())
+file_menu.add_option("Always on Top", command=always_on_top)
 
 file_menu_edit = menu.add_cascade("Edit")
 file_menu_ed = CustomDropdownMenu(file_menu_edit, master=root)

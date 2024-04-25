@@ -30,7 +30,7 @@
 
 [x] lightmode
 
-[] Markdown
+[] ctrl-z -> back
 
 pyinstaller:
 pyinstaller --name Temp_Notepad --icon D:\software\zCODE\python\temp_notepad\data\icon.ico -w -D main.py
